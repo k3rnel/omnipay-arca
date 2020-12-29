@@ -1,0 +1,33 @@
+{
+    "name": "k3rnel/omnipay-arca",
+    "type": "library",
+    "description": "Arca gateway for Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "arca",
+        "purchase"
+    ],
+    "homepage": "https://github.com/k3rnel/omnipay-arca",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Poghos Boyajyan",
+            "email": "poghosboyajyan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Arca\\": "src/"
+        }
+    },
+    "require": {
+        "omnipay/common": "^3"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3"
+    }
+}
