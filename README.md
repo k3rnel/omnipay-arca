@@ -42,8 +42,8 @@ Or you can simply run
 ```php
 
     $gateway = Omnipay::create('Arca');
-    $gateway->setAccountId(env('ACCOUNT_ID'));
-    $gateway->setSecretKey(env('SECRET_KEY'));
+    $gateway->setUsername(env('ARCA_USERNAME'));
+    $gateway->setPassword(env('ARCA_PASSWORD'));
     $gateway->setLanguage(\App::getLocale()); // Language
     $gateway->setAmount(10); // Amount to charge
     $gateway->setTransactionId(XXXX); // Transaction ID from your system
@@ -64,8 +64,8 @@ Or you can simply run
 ```php
 
     $gateway = Omnipay::create('Arca');
-    $gateway->setAccountId(env('ACCOUNT_ID'));
-    $gateway->setSecretKey(env('SECRET_KEY'));
+    $gateway->setUsername(env('ARCA_USERNAME'));
+    $gateway->setPassword(env('ARCA_PASSWORD'));
     
     $purchase = $gateway->completePurchase()->send();
     
