@@ -42,8 +42,9 @@ Or you can simply run
 ```php
 
     $gateway = Omnipay::create('Arca');
-    $gateway->setAccountId(env('ACCOUNT_ID'));
-    $gateway->setSecretKey(env('SECRET_KEY'));
+    $gateway->setUsername(env('ARCA_USERNAME'));
+    $gateway->setPassword(env('ARCA_PASSWORD'));
+    $gateway->setReturnUrl(env('ARCA_RETURN_URL')); // Return url, that should be point to your arca webhook route
     $gateway->setLanguage(\App::getLocale()); // Language
     $gateway->setAmount(10); // Amount to charge
     $gateway->setTransactionId(XXXX); // Transaction ID from your system
@@ -59,13 +60,13 @@ Or you can simply run
 
 ```
 
-4. Create a webhook controller to handle the callback request at your `RESULT_URL` and catch the webhook as follows
+4. Create a webhook controller to handle the callback request at your `ARCA_RESULT_URL` and catch the webhook as follows
 
 ```php
 
     $gateway = Omnipay::create('Arca');
-    $gateway->setAccountId(env('ACCOUNT_ID'));
-    $gateway->setSecretKey(env('SECRET_KEY'));
+    $gateway->setUsername(env('ARCA_USERNAME'));
+    $gateway->setPassword(env('ARCA_PASSWORD'));
     
     $purchase = $gateway->completePurchase()->send();
     
