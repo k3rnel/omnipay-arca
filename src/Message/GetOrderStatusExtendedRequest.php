@@ -2,8 +2,6 @@
 
 namespace Omnipay\Arca\Message;
 
-use Omnipay\Arca\Message\AbstractRequest;
-
 /**
  * Class GetOrderStatusExtendedRequest
  * @package Omnipay\Arca\Message
@@ -16,7 +14,7 @@ class GetOrderStatusExtendedRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
-    public function getData()
+    public function getData() : array
     {
         $this->validate('transactionId');
 
@@ -34,7 +32,7 @@ class GetOrderStatusExtendedRequest extends AbstractRequest
     /**
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint() : string
     {
         return $this->getUrl() . '/getOrderStatusExtended.do';
     }

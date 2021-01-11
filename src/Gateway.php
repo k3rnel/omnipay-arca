@@ -26,7 +26,7 @@ class Gateway extends AbstractGateway
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return 'Arca';
     }
@@ -35,7 +35,7 @@ class Gateway extends AbstractGateway
     /**
      * @return array
      */
-    public function getDefaultParameters()
+    public function getDefaultParameters() : array
     {
         return [
             'username' => '',
@@ -44,9 +44,11 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * Get account login.
+     *
      * @return mixed
      */
-    public function getUserName()
+    public function getUsername()
     {
         return $this->getParameter('username');
     }
@@ -57,12 +59,14 @@ class Gateway extends AbstractGateway
      * @param $value
      * @return $this
      */
-    public function setUserName($value)
+    public function setUsername($value) : Gateway
     {
         return $this->setParameter('username', $value);
     }
 
     /**
+     * Get account password.
+     *
      * @return mixed
      */
     public function getPassword()
@@ -84,12 +88,12 @@ class Gateway extends AbstractGateway
     /**
      * Create Purchase Request.
      *
-     * @param  array $parameters
+     * @param  array $options
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function purchase(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function purchase(array $options = array()): \Omnipay\Common\Message\AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\RegisterRequest', $parameters);
+        return $this->createRequest('\Omnipay\Arca\Message\RegisterRequest', $options);
     }
 
     /**

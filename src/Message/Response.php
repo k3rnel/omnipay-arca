@@ -32,6 +32,8 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function __construct(RequestInterface $request, $data, $headers = [])
     {
+        parent::__construct($request, $data);
+
         $this->request = $request;
         $this->data = json_decode($data, true);
         $this->headers = $headers;
@@ -42,7 +44,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return bool
      */
-    public function isSuccessful()
+    public function isSuccessful() : bool
     {
         if ($this->getOrderStatus()) {
             return $this->isCompleted() && $this->isNotError();
@@ -56,7 +58,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return bool
      */
-    public function isNotError()
+    public function isNotError() : bool
     {
         return $this->getCode() == self::NO_ERROR;
     }
@@ -67,7 +69,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return bool
      */
-    public function isCompleted()
+    public function isCompleted() : bool
     {
         return $this->getOrderStatus() == self::DEPOSITED;
     }
@@ -75,7 +77,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     /**
      * @return bool
      */
-    public function isRedirect()
+    public function isRedirect() : bool
     {
         return isset($this->data['formUrl']) ? true : false;
     }
@@ -85,7 +87,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return string
      */
-    public function getRedirectUrl()
+    public function getRedirectUrl() : string
     {
         return $this->data['formUrl'];
     }
@@ -95,7 +97,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return string|null
      */
-    public function getTransactionReference()
+    public function getTransactionReference() : ?string
     {
         if (isset($this->data['orderId'])) {
             return $this->data['orderId'];
@@ -147,7 +149,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return string|null
      */
-    public function getMessage()
+    public function getMessage() : ?string
     {
         if (isset($this->data['errorMessage'])) {
             return $this->data['errorMessage'];
@@ -166,7 +168,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return string|null
      */
-    public function getCode()
+    public function getCode() : ?string
     {
         if (isset($this->data['errorCode'])) {
             return $this->data['errorCode'];
@@ -184,7 +186,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *
      * @return string|null
      */
-    public function getActionCodeDescription()
+    public function getActionCodeDescription() : ?string
     {
         if (isset($this->data['actionCodeDescription'])) {
             return $this->data['actionCodeDescription'];
@@ -196,7 +198,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     /**
      * @return string|null
      */
-    public function getRequestId()
+    public function getRequestId() : ?string
     {
         if (isset($this->headers['Request-Id'])) {
             return $this->headers['Request-Id'][0];

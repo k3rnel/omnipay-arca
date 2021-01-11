@@ -8,7 +8,7 @@ namespace Omnipay\Arca\Message;
  */
 class RefundRequest extends AbstractRequest
 {
-    public function getData()
+    public function getData() : array
     {
         $this->validate('transactionId', 'amount');
 
@@ -23,7 +23,7 @@ class RefundRequest extends AbstractRequest
     /**
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint() : string
     {
         return $this->getUrl() . '/refund.do';
     }

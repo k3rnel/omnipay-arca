@@ -27,7 +27,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
     /**
      * @return mixed
      */
-    public function getUserName()
+    public function getUsername()
     {
         return $this->getParameter('username');
     }
@@ -38,7 +38,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * @param $value
      * @return $this
      */
-    public function setUserName($value)
+    public function setUsername($value) : AbstractRequest
     {
         return $this->setParameter('username', $value);
     }
@@ -59,7 +59,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * @param $value
      * @return $this
      */
-    public function setPassword($value)
+    public function setPassword($value) : AbstractRequest
     {
         return $this->setParameter('password', $value);
     }
@@ -71,7 +71,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl() : string
     {
         return $this->getTestMode() ? $this->testEndpoint : $this->endpoint;
     }
@@ -93,9 +93,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      */
     public function getHeaders()
     {
-        $headers = [];
-
-        return $headers;
+        return [];
     }
 
     /**
@@ -113,7 +111,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      *
      * @return $this
      */
-    public function setLanguage($value)
+    public function setLanguage($value) : AbstractRequest
     {
         return $this->setParameter('language', $value);
     }
@@ -134,7 +132,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      *
      * @return $this
      */
-    public function setJsonParams($value)
+    public function setJsonParams(string $value) : AbstractRequest
     {
         return $this->setParameter('jsonParams', $value);
     }
@@ -160,17 +158,21 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * @param array $headers
      * @return Response
      */
-    protected function createResponse($data, $headers = [])
+    protected function createResponse($data, $headers = []) : Response
     {
         return $this->response = new Response($this, $data, $headers);
     }
 
-    public function getData()
+    /**
+     * @return array
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function getData() : array
     {
         $this->validate('username', 'password');
 
         return [
-            'userName' => $this->getUserName(),
+            'userName' => $this->getUsername(),
             'password' => $this->getPassword(),
         ];
     }

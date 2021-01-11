@@ -2,7 +2,6 @@
 
 namespace Omnipay\Arca\Message;
 
-use Omnipay\Arca\Message\AbstractRequest;
 
 /**
  * Class RegisterRequest
@@ -26,7 +25,7 @@ class RegisterRequest extends AbstractRequest
      *
      * @return $this
      */
-    public function setPageView($value)
+    public function setPageView($value) : RegisterRequest
     {
         return $this->setParameter('pageView', $value);
     }

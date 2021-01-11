@@ -2,8 +2,6 @@
 
 namespace Omnipay\Arca\Message;
 
-use Omnipay\Arca\Message\AbstractRequest;
-
 /**
  * Class VerifyEnrollmentRequest
  * @package Omnipay\Arca\Message
@@ -24,7 +22,7 @@ class VerifyEnrollmentRequest extends AbstractRequest
      * @param $value
      * @return $this
      */
-    public function setPan($value)
+    public function setPan($value) : VerifyEnrollmentRequest
     {
         return $this->setParameter('pan', $value);
     }
@@ -35,7 +33,7 @@ class VerifyEnrollmentRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
-    public function getData()
+    public function getData() : array
     {
         $this->validate('pan');
 
@@ -49,7 +47,7 @@ class VerifyEnrollmentRequest extends AbstractRequest
     /**
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint() : string
     {
         return $this->getUrl() . '/verifyEnrollment.do';
     }

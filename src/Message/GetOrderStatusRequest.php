@@ -16,7 +16,7 @@ class GetOrderStatusRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
-    public function getData()
+    public function getData() : array
     {
         $this->validate('transactionId');
 
@@ -35,7 +35,7 @@ class GetOrderStatusRequest extends AbstractRequest
     /**
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint() : string
     {
         return $this->getUrl() . '/getOrderStatus.do';
     }

@@ -2,8 +2,6 @@
 
 namespace Omnipay\Arca\Message;
 
-use Omnipay\Arca\Message\AbstractRequest;
-
 /**
  * Class RegisterPreAuthRequest
  * @package Omnipay\Arca\Message
@@ -26,7 +24,7 @@ class RegisterPreAuthRequest extends AbstractRequest
      *
      * @return $this
      */
-    public function setPageView($value)
+    public function setPageView(string $value) : RegisterPreAuthRequest
     {
         return $this->setParameter('pageView', $value);
     }
