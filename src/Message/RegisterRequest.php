@@ -76,7 +76,7 @@ class RegisterRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
-    public function getData()
+    public function getData() : array
     {
         $this->validate('transactionId', 'amount', 'returnUrl');
 
