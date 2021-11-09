@@ -11,7 +11,6 @@ use Omnipay\Common\AbstractGateway;
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
@@ -94,6 +93,17 @@ class Gateway extends AbstractGateway
     public function purchase(array $options = array()): \Omnipay\Common\Message\AbstractRequest
     {
         return $this->createRequest('\Omnipay\Arca\Message\RegisterRequest', $options);
+    }
+    
+    /**
+     * Create Complete Purchase Request.
+     *
+     * @param  array $options
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function completePurchase(array $options = array()): \Omnipay\Common\Message\AbstractRequest
+    {
+        return $this->getOrderStatusExtended($options);
     }
 
     /**
