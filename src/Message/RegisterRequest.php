@@ -85,6 +85,7 @@ class RegisterRequest extends AbstractRequest
         $data['orderNumber'] = $this->getTransactionId();
         $data['amount'] = $this->getAmountInteger();
         $data['returnUrl'] = $this->getReturnUrl();
+        $data['jsonParams'] = json_encode(["FORCE_3DS2" => true]);
 
         if ($this->getCurrency()) {
             $data['currency'] = str_pad($this->getCurrencyNumeric(), 3, 0, STR_PAD_LEFT);
