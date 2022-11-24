@@ -1,12 +1,13 @@
 <?php
 
-namespace Omnipay\Arca\Message;
+namespace Omnipay\Arca\Message\Request;
+
 
 /**
- * Class RegisterPreAuthRequest
+ * Class RegisterRequest
  * @package Omnipay\Arca\Message
  */
-class RegisterPreAuthRequest extends AbstractRequest
+class RegisterRequest extends AbstractRequest
 {
     /**
      * @return mixed
@@ -24,7 +25,7 @@ class RegisterPreAuthRequest extends AbstractRequest
      *
      * @return $this
      */
-    public function setPageView(string $value) : RegisterPreAuthRequest
+    public function setPageView($value) : RegisterRequest
     {
         return $this->setParameter('pageView', $value);
     }
@@ -82,8 +83,9 @@ class RegisterPreAuthRequest extends AbstractRequest
         $data = parent::getData();
 
         $data['orderNumber'] = $this->getTransactionId();
-        $data['amount'] = $this->getAmount();
+        $data['amount'] = $this->getAmountInteger();
         $data['returnUrl'] = $this->getReturnUrl();
+        $data['jsonParams'] = json_encode(["FORCE_3DS2" => true]);
 
         if ($this->getCurrency()) {
             $data['currency'] = str_pad($this->getCurrencyNumeric(), 3, 0, STR_PAD_LEFT);
@@ -121,6 +123,6 @@ class RegisterPreAuthRequest extends AbstractRequest
      */
     public function getEndpoint()
     {
-        return $this->getUrl() . '/registerPreAuth.do';
+        return $this->getUrl() . '/register.do';
     }
 }

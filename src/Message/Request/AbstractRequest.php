@@ -1,11 +1,14 @@
 <?php
 
-namespace Omnipay\Arca\Message;
+namespace Omnipay\Arca\Message\Request;
 
-use \Omnipay\Common\Message\AbstractRequest AS CommonAbstractRequest;
+use Omnipay\Arca\Message\Response\CommonResponse;
+use \Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
+use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * Class AbstractRequest
+ *
  * @package Omnipay\Arca\Message
  */
 abstract class AbstractRequest extends CommonAbstractRequest
@@ -15,14 +18,14 @@ abstract class AbstractRequest extends CommonAbstractRequest
      *
      * @var string URL
      */
-    protected $endpoint = 'https://ipay.arca.am/payment/rest';
+    protected string $endpoint = 'https://ipay.arca.am/payment/rest';
 
     /**
      * Test Endpoint URL.
      *
      * @var string
      */
-    protected $testEndpoint = 'https://ipaytest.arca.am:8445/payment/rest';
+    protected string $testEndpoint = 'https://ipaytest.arca.am:8445/payment/rest';
 
     /**
      * @return mixed
@@ -36,11 +39,32 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * Set account login.
      *
      * @param $value
+     *
      * @return $this
      */
     public function setUsername($value) : AbstractRequest
     {
         return $this->setParameter('username', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBindingUsername() : ?string
+    {
+        return $this->getParameter('bindingUsername');
+    }
+
+    /**
+     * Set account login.
+     *
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setBindingUsername($value) : AbstractRequest
+    {
+        return $this->setParameter('bindingUsername', $value);
     }
 
     /**
@@ -57,6 +81,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * Set account password.
      *
      * @param $value
+     *
      * @return $this
      */
     public function setPassword($value) : AbstractRequest
@@ -140,7 +165,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
     /**
      * {@inheritdoc}
      */
-    public function sendData($data)
+    public function sendData($data) : ResponseInterface
     {
         $headers = [
             'Content-Type' => 'application/x-www-form-urlencoded',
@@ -154,13 +179,14 @@ abstract class AbstractRequest extends CommonAbstractRequest
     }
 
     /**
-     * @param $data
-     * @param array $headers
-     * @return Response
+     * @param string $data
+     * @param array  $headers
+     *
+     * @return CommonResponse
      */
-    protected function createResponse($data, $headers = []) : Response
+    protected function createResponse(string $data, array $headers = []) : ResponseInterface
     {
-        return $this->response = new Response($this, $data, $headers);
+        return $this->response = new CommonResponse($this, $data, $headers);
     }
 
     /**

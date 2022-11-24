@@ -1,16 +1,15 @@
 <?php
 
-namespace Omnipay\Arca\Message;
+namespace Omnipay\Arca\Message\Request;
 
 use Omnipay\Arca\Message\AbstractRequest;
 
 /**
- * Class ReverseRequest
+ * Class GetOrderStatusRequest
  * @package Omnipay\Arca\Message
  */
-class ReverseRequest extends AbstractRequest
+class GetOrderStatusRequest extends AbstractRequest
 {
-
     /**
      * Prepare data to send
      *
@@ -25,6 +24,11 @@ class ReverseRequest extends AbstractRequest
 
         $data['orderId'] = $this->getTransactionId();
 
+        if ($this->getLanguage()) {
+            $data['language'] = $this->getLanguage();
+        }
+
+
         return $data;
     }
 
@@ -33,6 +37,6 @@ class ReverseRequest extends AbstractRequest
      */
     public function getEndpoint() : string
     {
-        return $this->getUrl() . '/reverse.do';
+        return $this->getUrl() . '/getOrderStatus.do';
     }
 }

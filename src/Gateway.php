@@ -2,21 +2,33 @@
 
 namespace Omnipay\Arca;
 
+use Omnipay\Arca\Message\Request\BindingPaymentRequest;
+use Omnipay\Arca\Message\Request\DepositRequest;
+use Omnipay\Arca\Message\Request\GetBindingsRequest;
+use Omnipay\Arca\Message\Request\GetOrderStatusExtendedRequest;
+use Omnipay\Arca\Message\Request\GetOrderStatusRequest;
+use Omnipay\Arca\Message\Request\RefundRequest;
+use Omnipay\Arca\Message\Request\RegisterPreAuthRequest;
+use Omnipay\Arca\Message\Request\RegisterRequest;
+use Omnipay\Arca\Message\Request\ReverseRequest;
+use Omnipay\Arca\Message\Request\VerifyEnrollmentRequest;
 use Omnipay\Common\AbstractGateway;
-
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\NotificationInterface;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Arca Gateway
  *
- * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
- * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
+ * @method RequestInterface authorize(array $options = [])
+ * @method RequestInterface completeAuthorize(array $options = [])
+ * @method RequestInterface capture(array $options = [])
+ * @method RequestInterface void(array $options = [])
+ * @method RequestInterface createCard(array $options = [])
+ * @method RequestInterface updateCard(array $options = [])
+ * @method RequestInterface deleteCard(array $options = [])
+ * @method NotificationInterface acceptNotification(array $options = [])
+ * @method RequestInterface fetchTransaction(array $options = [])
  */
 class Gateway extends AbstractGateway
 {
@@ -45,9 +57,9 @@ class Gateway extends AbstractGateway
     /**
      * Get account login.
      *
-     * @return mixed
+     * @return string
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->getParameter('username');
     }
@@ -56,6 +68,7 @@ class Gateway extends AbstractGateway
      * Set account login.
      *
      * @param $value
+     *
      * @return $this
      */
     public function setUsername($value) : Gateway
@@ -64,11 +77,33 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * Get account username for binding payments.
+     *
+     * @return string|null
+     */
+    public function getBindingUsername() : ?string
+    {
+        return $this->getParameter('bindingUsername');
+    }
+
+    /**
+     * Set account username for binding payments.
+     *
+     * @param string|null $value
+     *
+     * @return \Omnipay\Arca\Gateway
+     */
+    public function setBindingUsername(?string $value) : Gateway
+    {
+        return $this->setParameter('bindingUsername', $value);
+    }
+
+    /**
      * Get account password.
      *
-     * @return mixed
+     * @return string
      */
-    public function getPassword()
+    public function getPassword() : string
     {
         return $this->getParameter('password');
     }
@@ -77,9 +112,10 @@ class Gateway extends AbstractGateway
      * Set account password.
      *
      * @param $value
+     *
      * @return $this
      */
-    public function setPassword($value): Gateway
+    public function setPassword($value) : Gateway
     {
         return $this->setParameter('password', $value);
     }
@@ -87,21 +123,23 @@ class Gateway extends AbstractGateway
     /**
      * Create Purchase Request.
      *
-     * @param  array $options
+     * @param array $options
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function purchase(array $options = array()): \Omnipay\Common\Message\AbstractRequest
+    public function purchase(array $options = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\RegisterRequest', $options);
+        return $this->createRequest(RegisterRequest::class, $options);
     }
-    
+
     /**
      * Create Complete Purchase Request.
      *
-     * @param  array $options
+     * @param array $options
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function completePurchase(array $options = array()): \Omnipay\Common\Message\AbstractRequest
+    public function completePurchase(array $options = []) : AbstractRequest
     {
         return $this->getOrderStatusExtended($options);
     }
@@ -109,67 +147,73 @@ class Gateway extends AbstractGateway
     /**
      * Create RegisterPreAuth Request.
      *
-     * @param  array $parameters
+     * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function registerPreAuth(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function registerPreAuth(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\RegisterPreAuthRequest', $parameters);
+        return $this->createRequest(RegisterPreAuthRequest::class, $parameters);
     }
 
     /**
      * Create GetOrderStatus Request.
      *
-     * @param  array $parameters
+     * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function getOrderStatus(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function getOrderStatus(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\GetOrderStatusRequest', $parameters);
+        return $this->createRequest(GetOrderStatusRequest::class, $parameters);
     }
 
     /**
      * Create getOrderStatusExtended Request.
      *
-     * @param  array $parameters
+     * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function getOrderStatusExtended(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function getOrderStatusExtended(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\GetOrderStatusExtendedRequest', $parameters);
+        return $this->createRequest(GetOrderStatusExtendedRequest::class, $parameters);
     }
 
     /**
      * Create verifyEnrollment Request.
      *
-     * @param  array $parameters
+     * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function verifyEnrollment(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function verifyEnrollment(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\VerifyEnrollmentRequest', $parameters);
+        return $this->createRequest(VerifyEnrollmentRequest::class, $parameters);
     }
 
     /**
      * Create Deposit Request.
      *
      * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function deposit(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function deposit(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\DepositRequest', $parameters);
+        return $this->createRequest(DepositRequest::class, $parameters);
     }
 
     /**
      * Create Reverse Request.
      *
      * @param array $parameters
+     *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function reverse(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function reverse(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\ReverseRequest', $parameters);
+        return $this->createRequest(ReverseRequest::class, $parameters);
     }
 
     /**
@@ -179,14 +223,34 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function refund(array $parameters = array()): \Omnipay\Common\Message\AbstractRequest
+    public function refund(array $parameters = []) : AbstractRequest
     {
-        return $this->createRequest('\Omnipay\Arca\Message\RefundRequest', $parameters);
+        return $this->createRequest(RefundRequest::class, $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\Arca\Message\Request\BindingPaymentRequest|AbstractRequest
+     */
+    public function bindingPayment(array $parameters = []) : BindingPaymentRequest
+    {
+        return $this->createRequest(BindingPaymentRequest::class, $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function getBindings(array $parameters = []) : AbstractRequest
+    {
+        return $this->createRequest(GetBindingsRequest::class, $parameters);
     }
 
     public function __call($name, $arguments)
     {
-        // TODO: Implement @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
+        // TODO: Implement @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = [])
         // TODO: Implement @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
     }
 }
