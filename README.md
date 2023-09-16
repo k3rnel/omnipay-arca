@@ -1,4 +1,4 @@
-# Omnipay: Arca
+# Omnipay: Arca (Armenian Card)
 
 **Arca driver for the Omnipay Laravel payment processing library**
 
