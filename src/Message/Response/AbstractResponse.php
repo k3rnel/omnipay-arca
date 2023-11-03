@@ -10,6 +10,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse implements Redir
 {
     const NO_ERROR = 0;
     const DEPOSITED = 2;
+    const DEPOSITED_ACS = 5;
 
     /**
      * @var string|null
@@ -111,7 +112,9 @@ abstract class AbstractResponse extends OmnipayAbstractResponse implements Redir
      */
     public function isCompleted() : bool
     {
-        return $this->getOrderStatus() == self::DEPOSITED;
+        $orderStatus = $this->getOrderStatus();
+
+        return $orderStatus == self::DEPOSITED || $orderStatus == self::DEPOSITED_ACS;
     }
 
     /**
