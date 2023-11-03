@@ -17,6 +17,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 {
     const DEPOSITED = 2;
     const NO_ERROR = 0;
+    const DEPOSITED_ACS = 5;
 
     /**
      * Request id
@@ -71,7 +72,9 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isCompleted() : bool
     {
-        return $this->getOrderStatus() == self::DEPOSITED;
+        $orderStatus = $this->getOrderStatus();
+
+        return $orderStatus == self::DEPOSITED || $orderStatus == self::DEPOSITED_ACS;
     }
 
     /**
