@@ -24,7 +24,6 @@ class BindingPaymentRequest extends AbstractBindingAwareRequest
         $data['mdOrder'] = $this->getTransactionReference();
         $data['bindingId'] = $this->getBindingId();
         $data['language'] = $this->getLanguage();
-        $data['cvc'] = 615;
 
         return $data;
     }

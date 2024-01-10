@@ -14,10 +14,7 @@ abstract class AbstractBindingAwareRequest extends AbstractRequest
     {
         $this->validate('bindingUsername', 'password');
 
-        $data = parent::getData();
-//        $data['userName'] = $this->getBindingUsername();
-
-        return $data;
+        return parent::getData();
     }
 
     public function getBindingId() : string
