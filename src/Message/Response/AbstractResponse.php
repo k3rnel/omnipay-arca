@@ -87,11 +87,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse implements Redir
      */
     public function isSuccessful() : bool
     {
-        if ($this->getOrderStatus()) {
-            return $this->isCompleted() && $this->isNotError();
-        }
-
-        return $this->isNotError();
+        return $this->isCompleted() && $this->isNotError();
     }
 
     /**
