@@ -2,15 +2,14 @@
 
 **Arca driver for the Omnipay Laravel payment processing library**
 
-[![Latest Stable Version](https://poser.pugx.org/k3rnel/omnipay-arca/version.png)](https://packagist.org/packages/k3rnel/omnipay-arca)
-[![Total Downloads](https://poser.pugx.org/k3rnel/omnipay-arca/d/total.png)](https://packagist.org/packages/k3rnel/omnipay-arca)
+[![Latest Stable Version](https://poser.pugx.org/k3rnel/omnipay-arca/v)](https://packagist.org/packages/k3rnel/omnipay-arca) [![Total Downloads](https://poser.pugx.org/k3rnel/omnipay-arca/downloads)](https://packagist.org/packages/k3rnel/omnipay-arca) [![Latest Unstable Version](https://poser.pugx.org/k3rnel/omnipay-arca/v/unstable)](https://packagist.org/packages/k3rnel/omnipay-arca) [![License](https://poser.pugx.org/k3rnel/omnipay-arca/license)](https://packagist.org/packages/k3rnel/omnipay-arca) [![PHP Version Require](https://poser.pugx.org/k3rnel/omnipay-arca/require/php)](https://packagist.org/packages/k3rnel/omnipay-arca)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.5+. This package implements Arca support for Omnipay.
 
 ## Installation
 
-Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
+Omnipay is installed via [Composer](https://getcomposer.org/). To install, simply add it
 to your `composer.json` file:
 
 ```json
@@ -87,8 +86,8 @@ repository.
 ## Support
 
 If you are having general issues with Omnipay, we suggest posting on
-[Stack Overflow](http://stackoverflow.com/). Be sure to add the
-[omnipay tag](http://stackoverflow.com/questions/tagged/omnipay) so it can be easily found.
+[Stack Overflow](https://stackoverflow.com/). Be sure to add the
+[omnipay tag](https://stackoverflow.com/questions/tagged/omnipay) so it can be easily found.
 
 If you want to keep up to date with release anouncements, discuss ideas for the project,
 or ask more detailed questions, there is also a [mailing list](https://groups.google.com/forum/#!forum/omnipay) which
